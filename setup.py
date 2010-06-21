@@ -6,6 +6,7 @@ from distutils.core import Extension, setup
 setup(
     name="python-signalfd",
     description="Python bindings for sigprocmask(2) and signalfd(2)",
+    version="0.1",
     author="Jean-Paul Calderone",
     author_email="exarkun@twistedmatrix.com",
     url="http://launchpad.net/python-signalfd",
