@@ -1,3 +1,5 @@
+# Copyright (c) 2010 Jean-Paul Calderone.
+# See LICENSE file for details.
 
 import sys
 

@@ -10,7 +10,7 @@ setup(
     author="Jean-Paul Calderone",
     author_email="exarkun@twistedmatrix.com",
     url="http://launchpad.net/python-signalfd",
-    packages=["signalfd"],
+    packages=["signalfd", "signalfd.test"],
     ext_modules=[Extension(
             name="signalfd._signalfd",
             sources=["signalfd/_signalfd.c"]),
