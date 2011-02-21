@@ -65,7 +65,7 @@ _signo_to_str = {
         64: 'SIGRTMAX',
     }
 
-def create_signalfd(signals, flags):
+def create_signalfd(signals, flags=0):
     """Creates a new signal file descriptor
 
     Shortcut for:
@@ -73,7 +73,7 @@ def create_signalfd(signals, flags):
         signalfd(-1, signals, flags)
     """
     sigprocmask(SIG_BLOCK, signals)
-    return signalfd(-1, signals, SFD_NONBLOCK)
+    return signalfd(-1, signals, flags)
 
 def read_signalfd(fd):
     """Given a signalfd, return a SigInfo instance"""
