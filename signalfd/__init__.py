@@ -1,5 +1,4 @@
 # Copyright (c) 2010 Jean-Paul Calderone.
-# Copyright (c) 2011 Michael Schurter <michael@susens-schurter.com>
 # See LICENSE file for details.
 import os
 import struct
