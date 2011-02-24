@@ -175,7 +175,7 @@ class SignalfdTests(unittest.TestCase):
         When invoked with a file descriptor of -1, signalfd allocates a new file
         descriptor for signal information delivery and returns it.
         """
-        fd = self.signalfd(-1, [])
+        fd = signalfd.create_signalfd([])
         self.assertIsInstance(fd, INTEGER_TYPES)
         os.close(fd)
 
@@ -226,6 +226,22 @@ class SignalfdTests(unittest.TestCase):
         os.kill(os.getpid(), signal.SIGUSR2)
         bytes = os.read(fd, 128)
         self.assertTrue(bytes)
+
+
+    def test_read_signals(self):
+        """
+        signalfd.read_signalfd should behave like test_handle_signals but
+        return a SigInfo instance instead of raw bytes
+        """
+        fd = self.signalfd(-1, [signal.SIGUSR2])
+        self.addCleanup(os.close, fd)
+        previous = signalfd.sigprocmask(signalfd.SIG_BLOCK, [signal.SIGUSR2])
+        self.addCleanup(signalfd.sigprocmask, signalfd.SIG_SETMASK, previous)
+        os.kill(os.getpid(), signal.SIGUSR2)
+        siginfo = signalfd.read_signalfd(fd)
+        self.assertTrue(siginfo)
+        self.assertEqual(siginfo.ssi_signo, signal.SIGUSR2)
+        self.assertEqual(siginfo.ssi_pid, os.getpid())
 
 
     def test_close_on_exec(self):
