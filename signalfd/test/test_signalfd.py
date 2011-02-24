@@ -267,6 +267,16 @@ class SignalfdTests(unittest.TestCase):
         self.assertTrue(flags & os.O_NONBLOCK)
 
 
+    def test_nonblocking_not_ready(self):
+        """
+        If SFD_NONBLOCK is set and fd is read before a signal is received raise
+        an OSError.
+        """
+        fd = signalfd.create_signalfd([], signalfd.SFD_NONBLOCK)
+        self.addCleanup(os.close, fd)
+        self.assertRaises(OSError, signalfd.read_signalfd, fd)
+
+
     def test_default_flags(self):
         """
         If an empty bit mask is passed as the 3rd argument to signalfd, neither
