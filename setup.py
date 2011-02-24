@@ -1,8 +1,7 @@
 # Copyright (c) 2010 Jean-Paul Calderone
 # See LICENSE file for details.
 
-from setuptools import setup
-from distutils.core import Extension
+from distutils.core import Extension, setup
 
 setup(
     name="python-signalfd",
