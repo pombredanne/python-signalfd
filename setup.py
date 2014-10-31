@@ -1,7 +1,30 @@
 # Copyright (c) 2010 Jean-Paul Calderone
 # See LICENSE file for details.
 
-from distutils.core import Extension, setup
+from distutils.core import Extension, setup, Command
+import sys, distutils.util
+from unittest import TextTestRunner, TestLoader
+
+class TestCommand(Command):
+    user_options = [ ]
+
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        sys.path.append(
+            'build/lib.%s-%s/signalfd' %
+            ( distutils.util.get_platform(), sys.version[0:3]))
+
+    def run(self):
+        '''Run unittests'''
+        import signalfd.test.test_signalfd
+        # testfiles = [ 'signalfd/test/test_signalfd.py' ]
+        # tests = TestLoader().loadTestsFromNames(testfiles)
+        # import signalfd.test
+        # tests = TestLoader().loadTestsFromModule(signalfd.test.test_signalfd)
+        # t = TextTestRunner(verbosity = 1)
+        # t.run(tests)
+
 
 setup(
     name="python-signalfd",
@@ -33,5 +56,7 @@ setup(
         "Programming Language :: Python :: 3.1",
         "Programming Language :: Python :: 3.2",
         "Topic :: Software Development :: Libraries :: Python Modules",
-        ])
+        ],
+    cmdclass = { 'test': TestCommand },
+    )
 
