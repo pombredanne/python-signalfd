@@ -1,0 +1,10 @@
+python-signalfd
+
+Python bindings to the Linux signalfd library/system call
+
+This version is by Jean-Paul Calderone, with extensions by Michael
+Schurter.  More info and links to original sources:
+
+https://launchpad.net/python-signalfd
+https://code.launchpad.net/~schmichael/python-signalfd/helpers
+http://blog.schmichael.com/2011/02/20/signalfd/
